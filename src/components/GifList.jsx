@@ -7,7 +7,7 @@ const GifList = ({ gifs, handleClick }) => {
     return (
       gifs.map((each) => {
         return (
-          <Gif gifId={each} key={each} handleClick={handleClick} />
+          <Gif gif={each} key={each} handleClick={handleClick} />
         );
       })
     );

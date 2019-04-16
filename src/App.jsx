@@ -7,7 +7,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gifs: []
+      gifs: [],
+      selectedGif: "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
     };
   }
 
@@ -30,16 +31,24 @@ class App extends React.Component {
   }
 
   handleClick = (event) => {
-    console.log(event);
+    const chosenUrl = event.currentTarget.src;
+    this.setState({
+      selectedGif: chosenUrl
+    });
   }
 
   render() {
-    const { gifs } = this.state;
+    const { gifs, selectedGif } = this.state;
     return (
       <div>
         <div className="left-scene">
           <SearchBar className="form-search" handleSearch={this.handleSearch} />
-          <Gif className="selected-gif" />
+          {/* { (selectedGif) ? ( */}
+          <Gif className="selected-gif" imgSrc={selectedGif} />
+          {/* ) : (
+            <Gif className="selected-gif" />
+          )
+          } */}
         </div>
         <div className="right-scene">
           <GifList gifs={gifs} handleClick={this.handleClick} />
