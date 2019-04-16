@@ -7,8 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gifDataObjs: [],
-      selectedGif: null
+      gifs: []
     };
   }
 
@@ -16,7 +15,7 @@ class App extends React.Component {
     const initSearchQuery = "http://api.giphy.com/v1/gifs/trending?api_key=YJX55XcfY5kziDCNt8AdN84EUvADhApg&rating=r";
     fetch(initSearchQuery).then(res => res.json()).then((json) => {
       const initIdList = json.data.map(gifObject => gifObject.id);
-      this.setState({ gifDataObjs: initIdList });
+      this.setState({ gifs: initIdList });
     });
   }
 
@@ -26,25 +25,24 @@ class App extends React.Component {
     fetch(searchUrl).then((res) => { return res.json(); }).then((json) => {
       console.log(json.data.map(gif => gif.id));
       const idList = json.data.map(gifObject => gifObject.id);
-      this.setState({ gifDataObjs: idList });
+      this.setState({ gifs: idList });
     });
   }
 
-  render() {
-    const { gifDataObjs, selectedGif } = this.state;
+  handleClick = (event) => {
+    console.log(event);
+  }
 
+  render() {
+    const { gifs } = this.state;
     return (
       <div>
         <div className="left-scene">
           <SearchBar className="form-search" handleSearch={this.handleSearch} />
-          { console.log(selectedGif ? 'true' : 'false') }
-          {selectedGif ? 
-            (<Gif className="selected-gif" selectedGif={selectedGif} />) :
-            (null)
-          }
+          <Gif className="selected-gif" />
         </div>
         <div className="right-scene">
-          <GifList gifs={gifDataObjs} />
+          <GifList gifs={gifs} handleClick={this.handleClick} />
         </div>
       </div>
 

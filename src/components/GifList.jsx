@@ -1,16 +1,18 @@
 import React from 'react';
 import Gif from './Gif';
 
-const GifList = (gifDataObjs) => {
-  if (Object.keys(gifDataObjs)) {
+const GifList = ({ gifs, handleClick }) => {
+
+  if (Object.keys(gifs).length > 0) {
     return (
-      gifDataObjs.gifs.map((each) => {
+      gifs.map((each) => {
         return (
-          <Gif gifId={each} key={each} />
+          <Gif gifId={each} key={each} handleClick={handleClick} />
         );
       })
     );
-  } return (null);
+  }
+  return (null);
 };
 
 export default GifList;
